@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project>
+  <fileVersion>2</fileVersion>
+  <fileChecksum>1620626872</fileChecksum>
+  <configuration>
+    <name>Debug</name>
+    <outputs>
+      <file>$PROJ_DIR$\src\DHT11.c</file>
+      <file>$PROJ_DIR$\src\ADC.c</file>
+      <file>$PROJ_DIR$\src\12864.c</file>
+      <file>$PROJ_DIR$\src\BH1750.c</file>
+      <file>$PROJ_DIR$\src\ds1302.c</file>
+      <file>$PROJ_DIR$\src\Keypad.c</file>
+      <file>$PROJ_DIR$\main.c</file>
+      <file>$PROJ_DIR$\src\timer.c</file>
+      <file>$PROJ_DIR$\src\USART.c</file>
+      <file>$PROJ_DIR$\src\user.c</file>
+      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
+      <file>$TOOLKIT_DIR$\inc\in430.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.r43</file>
+      <file>$TOOLKIT_DIR$\config\multiplier.xcl</file>
+      <file>$PROJ_DIR$\lib\Keypad.h</file>
+      <file>$TOOLKIT_DIR$\lib\dlib\dl430fn.r43</file>
+      <file>$PROJ_DIR$\Debug\Exe\wenshi.d43</file>
+      <file>$TOOLKIT_DIR$\config\lnk430F149.xcl</file>
+      <file>$PROJ_DIR$\Debug\Obj\wenshi.pbd</file>
+      <file>$PROJ_DIR$\lib\user.h</file>
+      <file>$TOOLKIT_DIR$\inc\msp430x14x.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\Keypad.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\12864.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\ds1302.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\ds1302.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\Keypad.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\ADC.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\ADC.r43</file>
+      <file>$PROJ_DIR$\lib\12864.h</file>
+      <file>$PROJ_DIR$\lib\ADC.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\user.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\user.r43</file>
+      <file>$PROJ_DIR$\lib\BH1750.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\BH1750.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\BH1750.r43</file>
+      <file>$PROJ_DIR$\Debug\Exe\wenshi.txt</file>
+      <file>$PROJ_DIR$\Debug\Obj\timer.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\timer.r43</file>
+      <file>$PROJ_DIR$\lib\timer.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\DHT11.pbi</file>
+      <file>$PROJ_DIR$\lib\ds1302.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\DHT11.r43</file>
+      <file>$PROJ_DIR$\lib\DHT11.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\USART.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\USART.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\DS18B20.pbi</file>
+      <file>$PROJ_DIR$\lib\USART.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\12864.r43</file>
+      <file>$PROJ_DIR$\src\DS18B20.c</file>
+    </outputs>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 36</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\DHT11.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 40</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 42</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 43 19</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 43 20 11 10 19</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\ADC.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 27</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 28</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 30 19</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 30 20 11 10 19</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\12864.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 23</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 48</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 29 19</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 29 20 11 10 19</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\BH1750.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 34</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 35</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 33 19</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 33 20 11 10 19</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\ds1302.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 25</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 24</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 41 29 19</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 41 20 11 10 29 19</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\Keypad.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 26</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 22</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14 19</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 14 20 11 10 19</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\main.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 21</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 12</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 29 14 19 43 41 30 39 33</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 20 11 10 29 14 19 43 41 30 39 33</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\timer.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 37</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 38</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 39 19</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 39 20 11 10 19</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\USART.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 44</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 45</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 47</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 47 20 11 10</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\user.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 32</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 19</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 19 20 11 10</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Debug\Exe\wenshi.d43</name>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 17 13 48 28 42 22 45 24 12 38 32 15</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Debug\Obj\wenshi.pbd</name>
+      <inputs>
+        <tool>
+          <name>BILINK</name>
+          <file> 23 27 34 40 26 44 25 21 37 31</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Debug\Exe\wenshi.txt</name>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 17 13 48 28 35 42 22 45 24 12 38 32 15</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\DS18B20.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 46</file>
+        </tool>
+      </outputs>
+    </file>
+  </configuration>
+  <configuration>
+    <name>Release</name>
+    <outputs/>
+    <forcedrebuild>
+      <name>[MULTI_TOOL]</name>
+      <tool>XLINK</tool>
+    </forcedrebuild>
+  </configuration>
+</project>
+
+

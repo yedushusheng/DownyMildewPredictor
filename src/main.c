@@ -1,7 +1,11 @@
 /******************************************************************************
-¹¤³ÌÃû³Æ£ºÎÂÊÒ´óÅï¿ØÖÆÏµÍ³
-ÏÖÓĞ¹¦ÄÜ£ºÎÂÊÒ¶ÈÏÔÊ¾Õı³£¡¢Ê±¼äÈÕÆÚÏÔÊ¾Õı³£
-ÈÕ    ÆÚ£º2014.5.13   14
+å·¥ç¨‹åç§°ï¼šæ™ºèƒ½æ¸©æ¹¿åº¦æ£€æµ‹ç³»ç»Ÿ
+ç°æœ‰åŠŸèƒ½ï¼š
+         1. å¤§æ°”æ¸©æ¹¿åº¦
+         2. åœŸå£¤æ¹¿åº¦
+         3. å…‰ç…§å¼ºåº¦
+         4. æ—¶é—´
+æ—¥    æœŸï¼š2014.5.13   14
 *******************************************************************************/
 #include "msp430x14x.h"
 #include "12864.h"
@@ -13,7 +17,7 @@
 #include "timer.h"
 //#include "USART.h"
 #include "BH1750.h"
-/**************************** ¶Ë¿Ú¶¨ÒåÇø ********************************/
+/**************************** ç«¯å£å®šä¹‰åŒº ********************************/
 #define LED_RED_ON    P2DIR |= BIT1;P2OUT &= ~BIT1
 #define LED_RED_OFF   P2DIR |= BIT1;P2OUT |= BIT1
 
@@ -35,8 +39,8 @@
 
 #define WATER_ON      P3DIR |= BIT6;P3OUT |= BIT6
 #define WATER_OFF     P3DIR |= BIT6;P3OUT &= ~BIT6
-/**************************** ±äÁ¿¶¨ÒåÈ¥ *******************************/
-extern uchar times[7];     //ÓÃÓÚ´æ´¢Ê±¼äÊı¾İ
+/**************************** å˜é‡å®šä¹‰å» *******************************/
+extern uchar times[7];     //ç”¨äºå­˜å‚¨æ—¶é—´æ•°æ®
 extern uchar Dis_Num[];
 extern uchar Key_Val;
 extern uchar Key_Flag;
@@ -46,36 +50,36 @@ extern volatile uchar Sec;
 extern volatile unsigned long int RH_soil;;
 extern unsigned long int  result;
 
-uchar PENG_Flag = 0;     //0±íÊ¾¹Ø×Å  1±íÊ¾¿ª×Å
-uchar Dis_Flag = 0;     //ÇĞÆÁ±äÁ¿ 
-uchar T_MAX = 30;               //ÎÂ¶ÈÉÏÏŞ ³õÊ¼ÖµÎª30
-uchar T_MIN = 15;               //ÎÂ¶ÈÏÂÏŞ ³õÊ¼ÖµÎª15
-uchar PP=0;      //ÓÎ±êÎ»ÖÃ±äÁ¿
-uchar cflag=0;;  //ÊÇ·ñ´¦ÓÚĞŞ¸Ä×´Ì¬±êÖ¾Î»
+uchar PENG_Flag = 0;     //0è¡¨ç¤ºå…³ç€  1è¡¨ç¤ºå¼€ç€
+uchar Dis_Flag = 0;     //åˆ‡å±å˜é‡ 
+uchar T_MAX = 30;               //æ¸©åº¦ä¸Šé™ åˆå§‹å€¼ä¸º30
+uchar T_MIN = 15;               //æ¸©åº¦ä¸‹é™ åˆå§‹å€¼ä¸º15
+uchar PP=0;      //æ¸¸æ ‡ä½ç½®å˜é‡
+uchar cflag=0;;  //æ˜¯å¦å¤„äºä¿®æ”¹çŠ¶æ€æ ‡å¿—ä½
 
 /*******************************************************************************
-º¯Êı¹¦ÄÜ£ºÊ±ÖÓ³õÊ¼»¯
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»ØÖµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šæ—¶é’Ÿåˆå§‹åŒ–
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›å€¼ï¼šæ— 
 *******************************************************************************/
 void Init_Clock(void)
 {
   uchar k;
-  BCSCTL1 &= ~XT2OFF;    //¿ªÆôXT2¾§Õñ
+  BCSCTL1 &= ~XT2OFF;    //å¼€å¯XT2æ™¶æŒ¯
   do 
   {
-    IFG1 &= ~OFIFG;           // Çå³ıÕñµ´Æ÷Ê§Ğ§±êÖ¾
-    for(k=0xee;k>0;k--){}      //ÑÓÊ±
+    IFG1 &= ~OFIFG;           // æ¸…é™¤æŒ¯è¡å™¨å¤±æ•ˆæ ‡å¿—
+    for(k=0xee;k>0;k--){}      //å»¶æ—¶
   
   }
-  while((IFG1 & OFIFG)!=0);        //ÅĞ¶ÏXT2ÊÇ·ñÆğÕñ
-  BCSCTL2 = SELM_2 + SELS;     // Ñ¡ÔñMCLK SMCLK ÎªXT2   8M
+  while((IFG1 & OFIFG)!=0);        //åˆ¤æ–­XT2æ˜¯å¦èµ·æŒ¯
+  BCSCTL2 = SELM_2 + SELS;     // é€‰æ‹©MCLK SMCLK ä¸ºXT2   8M
   
 }   
 /*******************************************************************************
-º¯Êı¹¦ÄÜ£ºÏµÍ³³õÊ¼»¯
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»ØÖµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šç³»ç»Ÿåˆå§‹åŒ–
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›å€¼ï¼šæ— 
 *******************************************************************************/
 void Init_System(void)
 {
@@ -94,16 +98,16 @@ void Init_System(void)
   delay_ms(50);
   Init_Keypad();
   delay_ms(50);
-  Init_BH1750();       //³õÊ¼»¯BH1750
+  Init_BH1750();       //åˆå§‹åŒ–BH1750
   
-  P2IES = 0x01;  //P2.0Ñ¡ÔñÏÂ½µÑØÖĞ¶Ï
-  P2IE = 0X01;  //´ò¿ªÖĞ¶ÏÊ¹ÄÜ
-  P2DIR &= ~BIT0;  // P10-P13ÊäÈë
+  P2IES = 0x01;  //P2.0é€‰æ‹©ä¸‹é™æ²¿ä¸­æ–­
+  P2IE = 0X01;  //æ‰“å¼€ä¸­æ–­ä½¿èƒ½
+  P2DIR &= ~BIT0;  // P10-P13è¾“å…¥
 }
 /*******************************************************************************
-º¯Êı¹¦ÄÜ£º°´¼ü´¦Àí
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»ØÖµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šæŒ‰é”®å¤„ç†
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›å€¼ï¼šæ— 
 *******************************************************************************/
 void Key_Process(void)
 {
@@ -113,7 +117,7 @@ void Key_Process(void)
           switch(Key_Val)
           {
             case 0x01:
-              switch(PP++)      //È·¶¨ÓÎ±êµØÖ·
+              switch(PP++)      //ç¡®å®šæ¸¸æ ‡åœ°å€
               {
                 case 0: writeaddress(2,1);break;
                 case 1: writeaddress(2,3);break;
@@ -124,17 +128,17 @@ void Key_Process(void)
                 //case 6: writeaddress(1,1);break;
                 default:break;
               }                  
-              writecmd(0x0f);   //´ò¿ªÓÎ±ê
+              writecmd(0x0f);   //æ‰“å¼€æ¸¸æ ‡
               if(PP == 6) 
               PP = 0;
-              cflag = 1;          //±êÖ¾ÖÃÎ»
+              cflag = 1;          //æ ‡å¿—ç½®ä½
               break;   
             case 0x02:
               if(cflag)
               {
                 switch(PP)
                 {
-                  case 1:         //Äê
+                  case 1:         //å¹´
                         times[6]++;
                         if((times[6]&0x0f) == 0x0a)
                         {
@@ -148,7 +152,7 @@ void Key_Process(void)
                         writedata(Dis_Num[times[6]&0x0f]);
                         writeaddress(2,1); 
                                 break;
-                      case 2:         //ÔÂ
+                      case 2:         //æœˆ
                         times[4]++;
                         if((times[4]&0x0f) == 0x0a)
                         {
@@ -162,7 +166,7 @@ void Key_Process(void)
                         writedata(Dis_Num[times[4]&0x0f]);
                         writeaddress(2,3);
                         break;
-                      case 3:         //ÈÕ
+                      case 3:         //æ—¥
                         times[3]++;
                         if((times[3]&0x0f) == 0x0a)
                         {
@@ -176,7 +180,7 @@ void Key_Process(void)
                         writedata(Dis_Num[times[3]&0x0f]);
                         writeaddress(2,5);
                         break;
-                      case 4:         //Ê±
+                      case 4:         //æ—¶
                         times[2]++;
                         if((times[2]&0x0f) == 0x0a)
                         {
@@ -190,7 +194,7 @@ void Key_Process(void)
                         writedata(Dis_Num[times[2]&0x0f]);
                         writeaddress(3,0);
                         break;
-                      case 5:         //·Ö
+                      case 5:         //åˆ†
                         times[1]++;
                         if((times[1]&0x0f) == 0x0a)
                         {
@@ -204,7 +208,7 @@ void Key_Process(void)
                         writedata(Dis_Num[times[1]&0x0f]);
                         writeaddress(3,2);
                         break;
-                      case 0:         //Ãë
+                      case 0:         //ç§’
                         times[0]=0x00;
                         /* if((times[0]&0x0f) == 0x0a)
                         {
@@ -228,7 +232,7 @@ void Key_Process(void)
                   {
                     switch(PP-1)
                     {
-                      case 0:         //Äê
+                      case 0:         //å¹´
                         times[6]--;
                         if((times[6]&0x0f) == 0x0f)
                         {
@@ -242,7 +246,7 @@ void Key_Process(void)
                         writedata(Dis_Num[times[6]&0x0f]);
                         writeaddress(2,1); 
                         break;
-                      case 1:         //ÔÂ
+                      case 1:         //æœˆ
                         times[4]--;
                         if((times[4]&0x0f) == 0x0f)
                         {
@@ -256,7 +260,7 @@ void Key_Process(void)
                         writedata(Dis_Num[times[4]&0x0f]);
                         writeaddress(2,3);
                         break;
-                      case 2:         //ÈÕ
+                      case 2:         //æ—¥
                         times[3]--;
                         if((times[3]&0x0f) == 0x0f)
                         {
@@ -270,7 +274,7 @@ void Key_Process(void)
                         writedata(Dis_Num[times[3]&0x0f]);
                         writeaddress(2,5);
                         break;
-                      case 3:         //Ê±
+                      case 3:         //æ—¶
                         times[2]--;
                         if((times[2]&0x0f) == 0x0f)
                         {
@@ -281,7 +285,7 @@ void Key_Process(void)
                         writedata(Dis_Num[times[2]&0x0f]);
                         writeaddress(3,0);
                         break;
-                      case 4:         //·Ö
+                      case 4:         //åˆ†
                         times[1]--;
                         if((times[1]&0x0f) == 0x0f)
                         {
@@ -292,7 +296,7 @@ void Key_Process(void)
                         writedata(Dis_Num[times[1]&0x0f]);
                         writeaddress(3,2);
                                 break;
-                      /* case 5:         //Ãë
+                      /* case 5:         //ç§’
                         times[0]=0x00;
                         if((times[0]&0x0f) == 0x0f)
                         {
@@ -313,7 +317,7 @@ void Key_Process(void)
                   {
                     cflag = 0;
                     PP = 0;
-                    writecmd(0x0c);   //¹Ø±ÕÓÎ±ê
+                    writecmd(0x0c);   //å…³é—­æ¸¸æ ‡
                     Set_DS1302(times);
                     P1IFG=0x00;           
                   }
@@ -341,12 +345,12 @@ void Key_Process(void)
                  break;
                case 0x10:
                  Dis_Flag = 2; 
-                 break;                //°´ÏÂ16ºÅ¼ü£¬×Ô¶¯Ìøµ½ÉÏÒ»ÆÁ
-               default:  break;                      //°´ÏÂÆäËû°´¼ü£¬²»×öÈÎºÎ²Ù×÷       
+                 break;                //æŒ‰ä¸‹16å·é”®ï¼Œè‡ªåŠ¨è·³åˆ°ä¸Šä¸€å±
+               default:  break;                      //æŒ‰ä¸‹å…¶ä»–æŒ‰é”®ï¼Œä¸åšä»»ä½•æ“ä½œ       
                }
               }
 }
-/**************************** Ö÷º¯Êı ********************************/
+/**************************** ä¸»å‡½æ•° ********************************/
 void main( void )
 {
   // Stop watchdog timer to prevent time out reset
@@ -354,36 +358,36 @@ void main( void )
   Init_LCD();
   delay_ms(50);
   writeaddress(0,0);
-  print("    »¶Ó­Ê¹ÓÃ    ");
+  print("    æ¬¢è¿ä½¿ç”¨    ");
   writeaddress(1,0);
-  print("ÉèÊ©Ô°ÒÕ¼à¿ØÏµÍ³");
+  print("è®¾æ–½å›­è‰ºç›‘æ§ç³»ç»Ÿ");
   writeaddress(2,0);
-  print("ÏµÍ³ÕıÔÚ³õÊ¼»¯");  
+  print("ç³»ç»Ÿæ­£åœ¨åˆå§‹åŒ–");  
   writeaddress(3,0);
-  print("ÇëÉÔºó..."); 
+  print("è¯·ç¨å..."); 
   Init_System();
   delay_ms(1000);
-  _EINT();               //¿ªÖĞ¶Ï
+  _EINT();               //å¼€ä¸­æ–­
   while(1)
   {
-    /************************ µÚÒ»ÆÁ£ºÏÔÊ¾ÎÂÊª¶È£¬Ê±¼äÈÕÆÚ ********************/
+    /************************ ç¬¬ä¸€å±ï¼šæ˜¾ç¤ºæ¸©æ¹¿åº¦ï¼Œæ—¶é—´æ—¥æœŸ ********************/
     if(Dis_Flag == 0)
     {
-      writecmd(0x01); //Çå³ıÆÁÄ»
+      writecmd(0x01); //æ¸…é™¤å±å¹•
       delay_ms(10);
       writeaddress(0,0);
-      print("    ¼à¿ØÏµÍ³    ");
+      print("    ç›‘æ§ç³»ç»Ÿ    ");
       writeaddress(1,0);
-      print("  T:  ¡æ  R:  % ");
+      print("  T:  â„ƒ  R:  % ");
       writeaddress(2,0);
-      print("20  Äê  ÔÂ  ÈÕ");
+      print("20  å¹´  æœˆ  æ—¥");
       while(Dis_Flag == 0)
       {
         Key_Event();
         Key_Process();
         if(cflag == 0)
         {
-          Get_DS1302(times);          //»ñÈ¡Ê±¼äÊı¾İ
+          Get_DS1302(times);          //è·å–æ—¶é—´æ•°æ®
           ShowTime();
           RH();
           writeaddress(1,2);
@@ -403,9 +407,9 @@ void main( void )
           }
           if(T_data_H < T_MIN)  
           {
-            FAN_OFF;       //¹Ø·çÉÈ
+            FAN_OFF;       //å…³é£æ‰‡
             LED_RED_OFF;
-            if(PENG_Flag)  //¹ØÅï
+            if(PENG_Flag)  //å…³æ£š
             {
               PENG_OFF;
               delay_ms(10000);
@@ -413,7 +417,7 @@ void main( void )
               PENG_Flag = 0;
             }
           }
-          if(RH_soil < 42)    //×Ô¶¯¹à¸È
+          if(RH_soil < 42)    //è‡ªåŠ¨çŒæº‰
           {
             WATER_ON;
             LED_GREEN_ON;
@@ -426,31 +430,31 @@ void main( void )
         }
       }
     }
-    /************************ µÚ¶şÆÁ£ºÏÔÊ¾ÍÁÈÀÊª¶È£¬¹âÕÕÇ¿¶È ********************/
+    /************************ ç¬¬äºŒå±ï¼šæ˜¾ç¤ºåœŸå£¤æ¹¿åº¦ï¼Œå…‰ç…§å¼ºåº¦ ********************/
     else if(Dis_Flag == 1)
     {
-      writecmd(0x01); //Çå³ıÆÁÄ»
+      writecmd(0x01); //æ¸…é™¤å±å¹•
       delay_ms(10);
-      Init_BH1750();       //³õÊ¼»¯BH1750
+      Init_BH1750();       //åˆå§‹åŒ–BH1750
       writeaddress(0,0);
-      print("    ¼à¿ØÏµÍ³    ");
+      print("    ç›‘æ§ç³»ç»Ÿ    ");
       writeaddress(1,0);
-      print("ÍÁÈÀÊª¶È£º    %");
+      print("åœŸå£¤æ¹¿åº¦ï¼š    %");
       writeaddress(2,0);
-      print("¹âÕÕÇ¿¶È£º");
+      print("å…‰ç…§å¼ºåº¦ï¼š");
       while(Dis_Flag == 1)
       {
         Key_Event();
-        if(Key_Flag == 1)  //ÅĞ¶ÏÊÇ·ñÓĞ°´¼ü±»°´ÏÂ
+        if(Key_Flag == 1)  //åˆ¤æ–­æ˜¯å¦æœ‰æŒ‰é”®è¢«æŒ‰ä¸‹
         {
           if(Key_Val == 12)
             Dis_Flag = 0;
             Key_Flag = 0;
         }
-        ADC12IE = 0x01;                 //¿ªADÖĞ¶Ï
-        Multiple_Read_BH1750();       //Á¬Ğø¶Á³öÊı¾İ£¬´æ´¢ÔÚBUFÖĞ
+        ADC12IE = 0x01;                 //å¼€ADä¸­æ–­
+        Multiple_Read_BH1750();       //è¿ç»­è¯»å‡ºæ•°æ®ï¼Œå­˜å‚¨åœ¨BUFä¸­
         
-        writeaddress(1,5);            //ÏÔÊ¾ÍÁÈÀÊª¶È
+        writeaddress(1,5);            //æ˜¾ç¤ºåœŸå£¤æ¹¿åº¦
         writedata(Dis_Num[RH_soil/100]);
         writedata(Dis_Num[RH_soil%100/10]);
         writedata(Dis_Num[RH_soil%10]);
@@ -460,7 +464,7 @@ void main( void )
         writedata(Dis_Num[result%100/10]);
         writedata(Dis_Num[result%10]);*/
         
-        writeaddress(2,5);            //ÏÔÊ¾¹âÕÕÇ¿¶È
+        writeaddress(2,5);            //æ˜¾ç¤ºå…‰ç…§å¼ºåº¦
         writedata(Dis_Num[Light/10000]);
         writedata(Dis_Num[Light%10000/1000]);
         writedata(Dis_Num[Light%1000/100]);
@@ -469,51 +473,51 @@ void main( void )
         delay_ms(100); 
       }
     }   
-    /************************ µÚÈıÆÁ£º×î¸ß¡¢µÍÎÂ¶Èµ÷½Ú ********************/
+    /************************ ç¬¬ä¸‰å±ï¼šæœ€é«˜ã€ä½æ¸©åº¦è°ƒèŠ‚ ********************/
     else if(Dis_Flag == 2)
     {
-      writecmd(0x01); //Çå³ıÆÁÄ»
+      writecmd(0x01); //æ¸…é™¤å±å¹•
       delay_ms(10);
       writeaddress(0,0);
-      print("  ´óÅïÎÂ¶ÈÉèÖÃ  ");
+      print("  æ¸©åº¦è®¾ç½®  ");
       writeaddress(1,0);
-      print("×î¸ßÎÂ¶È£º  ¡æ");
+      print("æœ€é«˜æ¸©åº¦ï¼š  â„ƒ");
       writeaddress(2,0);
-      print("×îµÍÎÂ¶È£º  ¡æ");
+      print("æœ€ä½æ¸©åº¦ï¼š  â„ƒ");
       while(Dis_Flag == 2)
       {
-        Key_Event();     //É¨Ãè¼üÅÌ
-        if(Key_Flag == 1)  //ÅĞ¶ÏÊÇ·ñÓĞ°´¼ü±»°´ÏÂ
+        Key_Event();     //æ‰«æé”®ç›˜
+        if(Key_Flag == 1)  //åˆ¤æ–­æ˜¯å¦æœ‰æŒ‰é”®è¢«æŒ‰ä¸‹
         {
           switch(Key_Val)
           {
             case 1:
-              if(T_MAX++ > 40) T_MAX = T_MIN; break;   //ÕâÀïÎÒÉèÖÃµÄ×î¸ßÎÂ¶È²»³¬¹ı40£¬¿ÉÒÔ¸ù¾İÄã×Ô¼ºµÄÒªÇó¸ü¸Ä£»
+              if(T_MAX++ > 40) T_MAX = T_MIN; break;   //è¿™é‡Œæˆ‘è®¾ç½®çš„æœ€é«˜æ¸©åº¦ä¸è¶…è¿‡40ï¼Œå¯ä»¥æ ¹æ®ä½ è‡ªå·±çš„è¦æ±‚æ›´æ”¹ï¼›
             case 2:
-              if(T_MAX-- < T_MIN) T_MAX = 40; break;  //×îµÍÎÂ¶ÈÎÂ¶ÈÎª0¶È£¬Èç¹ûÒª×öµÄÁãÏÂ ĞèÒª°ÑT_MAXµÄÀàĞÍ»»³É char
+              if(T_MAX-- < T_MIN) T_MAX = 40; break;  //æœ€ä½æ¸©åº¦æ¸©åº¦ä¸º0åº¦ï¼Œå¦‚æœè¦åšçš„é›¶ä¸‹ éœ€è¦æŠŠT_MAXçš„ç±»å‹æ¢æˆ char
             case 3:
-              if(T_MIN++ > T_MAX) T_MIN = 1; break; //Èç¹û×îµÍÎÂ¶È¸ßÓÚ×î¸ßÎÂ¶È£¬½«×îµÍÎÂ¶ÈÉèÎª1
+              if(T_MIN++ > T_MAX) T_MIN = 1; break; //å¦‚æœæœ€ä½æ¸©åº¦é«˜äºæœ€é«˜æ¸©åº¦ï¼Œå°†æœ€ä½æ¸©åº¦è®¾ä¸º1
             case 4:
-              if(T_MIN-- == 0) T_MIN = T_MAX; break; //Èç¹û×îµÍÎÂ¶ÈµÈÓÚ0£¬½«×îµÍÎÂ¶ÈÉèÎª×î¸ßÎÂ¶È
+              if(T_MIN-- == 0) T_MIN = T_MAX; break; //å¦‚æœæœ€ä½æ¸©åº¦ç­‰äº0ï¼Œå°†æœ€ä½æ¸©åº¦è®¾ä¸ºæœ€é«˜æ¸©åº¦
             case 16:
-              Dis_Flag = 0; break;                //°´ÏÂ16ºÅ¼ü£¬×Ô¶¯Ìøµ½ÉÏÒ»ÆÁ
-            default:  break;                      //°´ÏÂÆäËû°´¼ü£¬²»×öÈÎºÎ²Ù×÷
+              Dis_Flag = 0; break;                //æŒ‰ä¸‹16å·é”®ï¼Œè‡ªåŠ¨è·³åˆ°ä¸Šä¸€å±
+            default:  break;                      //æŒ‰ä¸‹å…¶ä»–æŒ‰é”®ï¼Œä¸åšä»»ä½•æ“ä½œ
           }
-          Key_Flag = 0;   //Çå¿Õ°´¼ü±êÖ¾Î»
+          Key_Flag = 0;   //æ¸…ç©ºæŒ‰é”®æ ‡å¿—ä½
         }
-        writeaddress(1,5);                    //ÔÚ12864ÉÏÏÔÊ¾¿Õµ÷ÎÂ¶ÈµØÖ·
-        writedata(Dis_Num[T_MAX/10]);         //ÏÔÊ¾×î¸ßÎÂ¶ÈÊ®Î»
-        writedata(Dis_Num[T_MAX%10]);         //ÏÔÊ¾×î¸ßÎÂ¶È¸öÎ»
-        writeaddress(2,5);                    //ÔÚ12864ÉÏÏÔÊ¾¿Õµ÷ÎÂ¶È
-        writedata(Dis_Num[T_MIN/10]);         //ÏÔÊ¾×îµÍÎÂ¶ÈÊ®Î»
-        writedata(Dis_Num[T_MIN%10]);         //ÏÔÊ¾×îµÍÎÂ¶È¸öÎ»   A1E6  
+        writeaddress(1,5);                    //åœ¨12864ä¸Šæ˜¾ç¤ºç©ºè°ƒæ¸©åº¦åœ°å€
+        writedata(Dis_Num[T_MAX/10]);         //æ˜¾ç¤ºæœ€é«˜æ¸©åº¦åä½
+        writedata(Dis_Num[T_MAX%10]);         //æ˜¾ç¤ºæœ€é«˜æ¸©åº¦ä¸ªä½
+        writeaddress(2,5);                    //åœ¨12864ä¸Šæ˜¾ç¤ºç©ºè°ƒæ¸©åº¦
+        writedata(Dis_Num[T_MIN/10]);         //æ˜¾ç¤ºæœ€ä½æ¸©åº¦åä½
+        writedata(Dis_Num[T_MIN%10]);         //æ˜¾ç¤ºæœ€ä½æ¸©åº¦ä¸ªä½   A1E6  
       }
     }
   }
 }
 /*------------------------------------------
-P2¿ÚÖĞ¶Ïº¯Êı
-Èç¹û½µÓê  ¹ØÅï
+P2å£ä¸­æ–­å‡½æ•°
+å¦‚æœé™é›¨  å…³æ£š
 ------------------------------------------*/
 #pragma vector=PORT2_VECTOR
 __interrupt void PORT1_ISR(void)
